@@ -1,22 +1,37 @@
-const togglebutton=document.getElementById("toggleButton");
-const bulb=document.getElementById("bulb");
+
+const toggleBtn = document.getElementById('toggleButton');
 const switchStatus = document.getElementById('status');
+const bulb = document.getElementById('bulb');
+const heading = document.getElementsByTagName('h1')[0];
+const para = document.getElementsByTagName('p')[0];
 
-togglebutton.addEventListener('click',()=>{
-    let bgcolor=document.body.style.backgroundColor;
-    if(!bgcolor || bgcolor=="white"){
+function changeBGTheme(color) {
+  document.body.style.backgroundColor = color;
+}
 
-        togglebutton.innerText="Turn Off";
-        switchStatus.innerText="Status: On";
-        bulb.setAttribute('class','bulb');
-        document.body.style.backgroundColor="black";
-    
-    }
-    else  if( bgcolor=="black"){
-        togglebutton.innerText="Turn On";
-        switchStatus.innerText="Status: Off";
-        bulb.setAttribute('class','bulb Off');
-        document.body.style.backgroundColor="white";
-    
-    }
-})
+function changeSwitchstatus(status, color) {
+  switchStatus.innerText = status;
+  switchStatus.style.color = color;
+}
+
+function changeWebText(color) {
+  heading.style.color = color;
+  para.style.color = color;
+}
+
+toggleBtn.addEventListener('click', () => {
+  const bgColor = document.body.style.backgroundColor;
+  if (!bgColor || bgColor === 'white') {
+    changeBGTheme('black');
+    changeSwitchstatus('Status: On', 'white');
+    changeWebText('white');
+    toggleBtn.innerText = 'Turn Off';
+    bulb.setAttribute('class', 'bulb');
+  } else {
+    changeBGTheme('white');
+    changeSwitchstatus('Status: Off', 'black');
+    changeWebText('black');
+    toggleBtn.innerText = 'Turn On';
+    bulb.setAttribute('class', 'bulb off');
+  }
+});
