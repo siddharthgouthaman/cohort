@@ -8,6 +8,7 @@ let totaltask = 0;
 let completedtask = 0;
 
 addbutton.addEventListener('click', () => {
+  
   if (taskip.value.trim() === '') {
     return;
   }
@@ -34,26 +35,32 @@ addbutton.addEventListener('click', () => {
 
   totaltask++;
   ttltasks.innerHTML = `Total tasks: ${totaltask}`;
-  emptyList.classList.add('hidden');
+  emptyList.innerHTML=`${totaltask} task added`;
   taskip.value = '';
 
   // Deleting task
   deletebutton.addEventListener('click', () => {
+    if(checkbox.checked){
+      completedtasks.innerHTML = `Completed: ${--completedtask}`;}
     li.remove();
     totaltask--;
+    
 
     if (totaltask === 0) {
       emptyList.classList.remove('hidden');
     }
-
+  
     ttltasks.innerHTML = `Total tasks: ${totaltask}`;
+    emptyList.innerHTML=`${totaltask} task added`;
   });
 
-  // Mark task as completed
+
   checkbox.addEventListener('change', () => {
     if (checkbox.checked) {
       span.classList.add('completed');
       completedtasks.innerHTML = `Completed: ${++completedtask}`;
+      span.style.textDecoration = "line-through";
+      
     } else {
       span.classList.remove('completed');
       completedtasks.innerHTML = `Completed: ${--completedtask}`;
@@ -61,9 +68,10 @@ addbutton.addEventListener('click', () => {
   });
 });
 
-// Move this outside to avoid duplicate event listeners
+
 taskip.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     addbutton.click();
   }
+});
 });
